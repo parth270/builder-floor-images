@@ -14,7 +14,7 @@ const Scene = ({ stop }) => {
   return (
     <>
       <ambientLight intensity={1} color={"#fff"} />
-      <mesh position={[0, 0, 0]} ref={ref}>
+      <mesh position={[0, 0, 0]} >
         <sphereGeometry args={[10, 100, 100]} />
         <meshBasicMaterial color={"#ff0000"} side={THREE.DoubleSide} map={texture} />
       </mesh>
