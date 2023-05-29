@@ -8,15 +8,21 @@ import { useLoader } from "@react-three/fiber";
 
 const url =
   "https://testerp1apis.nextsolutions.in/uploads/C1601-SL1/IMG_20221027_124906_00_merged.jpg";
+const url1 =
+  "https://builder-floor-flax.vercel.app/_next/image?url=https%3A%2F%2Ftesterp1apis.nextsolutions.in%2Fuploads%2F922%20SEC%2043%2FIMG_20221021_141945_00_merged.jpg&w=640&q=75";
+const url2 = "/checck.jpg";
 const Scene = ({ stop }) => {
-  const texture = useTexture(url);
-
+  const texture = useTexture("https://s3.ap-south-1.amazonaws.com/rowthautoss3/maruti.png9910");
   return (
     <>
       <ambientLight intensity={1} color={"#fff"} />
-      <mesh position={[0, 0, 0]} >
+      <mesh position={[0, 0, 0]}>
         <sphereGeometry args={[10, 100, 100]} />
-        <meshBasicMaterial color={"#ff0000"} side={THREE.DoubleSide} map={texture} />
+        <meshBasicMaterial
+          toneMapped={false}
+          side={THREE.DoubleSide}
+          map={texture}
+        />
       </mesh>
       <OrbitControls />
     </>
@@ -25,7 +31,14 @@ const Scene = ({ stop }) => {
 
 const CanvasContainer = () => {
   const [loading, setLoading] = useState(false);
-
+  const ref = useRef();
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    if (ref.current) {
+      setShow(true);
+    }
+  });
+  console.log(show);
   return (
     <>
       {loading && <Loader />}
@@ -42,7 +55,10 @@ const CanvasContainer = () => {
         onCreated={({ gl }) => {
           gl.toneMapping = THREE.ACESFilmicToneMapping;
         }}
-        style={{ width: "100%", height: "100%" }}
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
       >
         <Scene
           stop={() => {
