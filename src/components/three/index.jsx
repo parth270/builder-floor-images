@@ -12,7 +12,7 @@ const url1 =
   "https://builder-floor-flax.vercel.app/_next/image?url=https%3A%2F%2Ftesterp1apis.nextsolutions.in%2Fuploads%2F922%20SEC%2043%2FIMG_20221021_141945_00_merged.jpg&w=640&q=75";
 const url2 = "/checck.jpg";
 const Scene = ({ stop }) => {
-  const texture = useTexture("https://s3.ap-south-1.amazonaws.com/rowthautoss3/maruti.png9910");
+  const texture = useTexture(url);
   return (
     <>
       <ambientLight intensity={1} color={"#fff"} />
