@@ -5,6 +5,7 @@ import Loader from "../Loader";
 import * as THREE from "three";
 import { TextureLoader } from "three";
 import { useLoader } from "@react-three/fiber";
+import { useLocation } from "react-router-dom";
 
 const url =
   "https://testerp1apis.nextsolutions.in/uploads/C1601-SL1/IMG_20221027_124906_00_merged.jpg";
@@ -12,7 +13,40 @@ const url1 =
   "https://builder-floor-flax.vercel.app/_next/image?url=https%3A%2F%2Ftesterp1apis.nextsolutions.in%2Fuploads%2F922%20SEC%2043%2FIMG_20221021_141945_00_merged.jpg&w=640&q=75";
 const url2 = "/checck.jpg";
 const Scene = ({ stop }) => {
-  const texture = useTexture(url);
+  function getTextsAfterUploads(string) {
+    const uploadsIndex = string.indexOf("uploads/");
+    if (uploadsIndex !== -1) {
+      const texts = string.substring(uploadsIndex + "uploads/".length);
+      return texts.split("/");
+    } else {
+      return [];
+    }
+  }
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  // Accessing query parameters
+  const searchParam = queryParams.get('url');
+  console.log(searchParam)
+  // const texture = useTexture(url);
+  // const texture = useTexture(searchParam);
+  useEffect(()=>{
+    const textureLoader = new THREE.TextureLoader();
+    textureLoader.crossOrigin = "anonymous";
+    const ff=async()=>{
+
+      const response = await fetch(searchParam);
+      const blob = await response.blob();
+      const imageUrl = URL.createObjectURL(blob);
+      console.log(imageUrl,"please check here");
+    }
+    ff();
+    textureLoader.load(searchParam, function(texture) {
+      console.log(texture)
+      // Texture loading completed
+      // You can use the loaded texture here
+    });
+  })
   return (
     <>
       <ambientLight intensity={1} color={"#fff"} />
@@ -21,7 +55,6 @@ const Scene = ({ stop }) => {
         <meshBasicMaterial
           toneMapped={false}
           side={THREE.DoubleSide}
-          map={texture}
         />
       </mesh>
       <OrbitControls />

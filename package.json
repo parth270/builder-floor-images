@@ -42,5 +42,5 @@
   "devDependencies": {
     "tailwindcss": "^3.3.2"
   },
-  "proxy": "https://testerp1apis.nextsolutions.in"
+  "proxy": "https://builderfloors.s3.ap-south-1.amazonaws.com"
 }
