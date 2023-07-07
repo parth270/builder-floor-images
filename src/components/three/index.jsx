@@ -6,7 +6,6 @@ import * as THREE from "three";
 // import { TextureLoader } from "three";
 // import { useLoader } from "@react-three/fiber";
 import { useLocation } from "react-router-dom";
-import * as THREEE from "https://cdn.jsdelivr.net/npm/three@0.123/build/three.module.js";
 // const url =
 //   "https://testerp1apis.nextsolutions.in/uploads/C1601-SL1/IMG_20221027_124906_00_merged.jpg";
 // const url1 =
@@ -31,7 +30,7 @@ const Scene = ({ stop }) => {
   // const texture = useTexture(url);
   // const texture = useTexture(searchParam);
   useEffect(()=>{
-    const textureLoader = new THREEE.TextureLoader();
+    const textureLoader = new THREE.TextureLoader();
     textureLoader.crossOrigin = "anonymous";
     // const ff=async()=>{
 
