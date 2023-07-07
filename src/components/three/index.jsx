@@ -1,27 +1,27 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, {  useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useProgress, useTexture } from "@react-three/drei";
+import { OrbitControls} from "@react-three/drei";
 import Loader from "../Loader";
 import * as THREE from "three";
-import { TextureLoader } from "three";
-import { useLoader } from "@react-three/fiber";
+// import { TextureLoader } from "three";
+// import { useLoader } from "@react-three/fiber";
 import { useLocation } from "react-router-dom";
-
-const url =
-  "https://testerp1apis.nextsolutions.in/uploads/C1601-SL1/IMG_20221027_124906_00_merged.jpg";
-const url1 =
-  "https://builder-floor-flax.vercel.app/_next/image?url=https%3A%2F%2Ftesterp1apis.nextsolutions.in%2Fuploads%2F922%20SEC%2043%2FIMG_20221021_141945_00_merged.jpg&w=640&q=75";
-const url2 = "/checck.jpg";
+import * as THREEE from "https://cdn.jsdelivr.net/npm/three@0.123/build/three.module.js";
+// const url =
+//   "https://testerp1apis.nextsolutions.in/uploads/C1601-SL1/IMG_20221027_124906_00_merged.jpg";
+// const url1 =
+//   "https://builder-floor-flax.vercel.app/_next/image?url=https%3A%2F%2Ftesterp1apis.nextsolutions.in%2Fuploads%2F922%20SEC%2043%2FIMG_20221021_141945_00_merged.jpg&w=640&q=75";
+// const url2 = "/checck.jpg";
 const Scene = ({ stop }) => {
-  function getTextsAfterUploads(string) {
-    const uploadsIndex = string.indexOf("uploads/");
-    if (uploadsIndex !== -1) {
-      const texts = string.substring(uploadsIndex + "uploads/".length);
-      return texts.split("/");
-    } else {
-      return [];
-    }
-  }
+  // function getTextsAfterUploads(string) {
+  //   const uploadsIndex = string.indexOf("uploads/");
+  //   if (uploadsIndex !== -1) {
+  //     const texts = string.substring(uploadsIndex + "uploads/".length);
+  //     return texts.split("/");
+  //   } else {
+  //     return [];
+  //   }
+  // }
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
@@ -31,22 +31,21 @@ const Scene = ({ stop }) => {
   // const texture = useTexture(url);
   // const texture = useTexture(searchParam);
   useEffect(()=>{
-    const textureLoader = new THREE.TextureLoader();
+    const textureLoader = new THREEE.TextureLoader();
     textureLoader.crossOrigin = "anonymous";
-    const ff=async()=>{
+    // const ff=async()=>{
 
-      const response = await fetch(searchParam);
-      const blob = await response.blob();
-      const imageUrl = URL.createObjectURL(blob);
-      console.log(imageUrl,"please check here");
-    }
-    ff();
+    //   const response = await fetch(searchParam);
+    //   const blob = await response.blob();
+    //   const imageUrl = URL.createObjectURL(blob);
+    //   console.log(imageUrl,"please check here");
+    // }
     textureLoader.load(searchParam, function(texture) {
       console.log(texture)
       // Texture loading completed
       // You can use the loaded texture here
     });
-  })
+  },[searchParam])
   return (
     <>
       <ambientLight intensity={1} color={"#fff"} />
@@ -70,7 +69,7 @@ const CanvasContainer = () => {
     if (ref.current) {
       setShow(true);
     }
-  });
+  },[setShow]);
   console.log(show);
   return (
     <>

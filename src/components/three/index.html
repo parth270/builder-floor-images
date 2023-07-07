@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="padding: 0; margin: 0;" >
+    <div id="container" style="width: 100%; height:100vh" >
+
+    </div>
+    <script type="module" >
+      import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.123/build/three.module.js";
+      import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.123/examples/jsm/controls/OrbitControls.js";
+
+      let camera, scene, renderer;
+
+      init();
+
+      function init() {
+        const container = document.getElementById("container");
+
+        camera = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          1,
+          1100
+        );
+        camera.position.z = 0.01;
+
+        scene = new THREE.Scene();
+
+        const uurl =
+          "https://builderfloors.s3.ap-south-1.amazonaws.com/upload/556SEC43/1st Floor/360/IMG_20230508_130304_00_merged.jpg";
+        const urkk =
+          "https://builderfloors.s3.ap-south-1.amazonaws.com/upload/C403SL1/1st%20Floor/360/IMG_20221027_142114_00_merged.jpg";
+        const texture = new THREE.TextureLoader().load(uurl, render);
+        texture.mapping = THREE.EquirectangularReflectionMapping;
+
+        scene.background = texture;
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+
+        //
+
+        window.addEventListener("resize", onWindowResize, false);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.addEventListener("change", render);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function render() {
+        renderer.render(scene, camera);
+      }
+    </script>
+  </body>
+</html>
